@@ -31,6 +31,9 @@ jobs:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           prerelease: false
           file: TileBoard.zip
+          tag: ${{ github.ref }}
+          overwrite: true
+          body: Release ${{ github.ref }}
       
       - name: Copy README.md
         uses: canastro/copy-file-action@master
