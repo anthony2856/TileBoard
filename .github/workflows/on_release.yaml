@@ -14,6 +14,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Get the version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF#refs/tags/v}
+
       - name: Build app
         run: |
           yarn install --frozen-lockfile
@@ -28,3 +32,36 @@ jobs:
           prerelease: false
           files: |
             TileBoard.zip
+      
+      - name: Copy README.md
+        uses: canastro/copy-file-action@master
+        with:
+          source: "README.md"
+          target: "addon/README.md"
+      
+      - name: Copy CHANGELOG.md
+        uses: canastro/copy-file-action@master
+        with:
+          source: "CHANGELOG.md"
+          target: "addon/CHANGELOG.md"
+
+      - name: Update JSON version
+        uses: deef0000dragon1/json-edit-action/@v1
+        env:
+          KEY: version
+          VALUE: ${{ steps.get_version.outputs.VERSION }}
+          FILE: addon/config.json
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+
+      - name: Publish
+        uses: home-assistant/builder@master
+        with:
+          args: |
+            --all \
+            --target ./tileboard-addon \
+            --docker-hub anthonylegal
