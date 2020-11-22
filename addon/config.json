@@ -7,7 +7,7 @@
   "webui": "http://[HOST]:[PORT:8080]",
   "startup": "application",
   "init": false,
-  "image": "anthonylegal/tileboard-addon-{arch}",
+  "image": "<USERNAME>/tileboard-addon-{arch}",
   "arch": [
     "armhf",
     "armv7",

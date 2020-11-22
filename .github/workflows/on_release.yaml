@@ -72,5 +72,5 @@ jobs:
         with:
           args: |
             --all \
-            --target ./tileboard-addon \
+            --target ./addon \
             --docker-hub ${{ secrets.DOCKER_USERNAME }}
