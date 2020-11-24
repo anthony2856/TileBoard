@@ -14,7 +14,7 @@ SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Setup base
 RUN apk add --no-cache nginx curl unzip \
-        && curl -L https://github.com/resoai/TileBoard/releases/download/v${BUILD_VERSION}/TileBoard.zip > /tmp/tileboard.zip \
+        && curl -L https://github.com/anthony2856/TileBoard/releases/download/v${BUILD_VERSION}/TileBoard.zip > /tmp/tileboard.zip \
         && unzip /tmp/tileboard.zip -d /var/www/tileboard \
         && rm /tmp/tileboard.zip \
         && rm -rf /var/www/tileboard/images \
