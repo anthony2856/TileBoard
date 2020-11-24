@@ -1,6 +1,12 @@
 ARG BUILD_FROM=hassioaddons/base:8.0.5
 FROM ${BUILD_FROM}
 
+# Build arguments
+ARG BUILD_ARCH
+ARG BUILD_DATE
+ARG BUILD_REF
+ARG BUILD_VERSION
+
 ENV LANG C.UTF-8
 
 # Set shell
@@ -16,12 +22,6 @@ RUN apk add --no-cache nginx curl unzip \
 
 # Copy root filesystem
 COPY rootfs /
-
-# Build arguments
-ARG BUILD_ARCH
-ARG BUILD_DATE
-ARG BUILD_REF
-ARG BUILD_VERSION
 
 # Labels
 LABEL \
